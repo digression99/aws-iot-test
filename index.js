@@ -3,6 +3,8 @@ const dotenv = require('dotenv');
 
 dotenv.load({path:'.env.development'});
 
+console.log('private key path : ', process.env.AWS_IOT_PRIVATE_KEY_PATH);
+
 var device = awsIot.device({
     keyPath: process.env.AWS_IOT_PRIVATE_KEY_PATH,
     certPath: process.env.AWS_IOT_CERTIFICATE_PATH,
