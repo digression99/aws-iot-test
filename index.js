@@ -3,13 +3,12 @@ const dotenv = require('dotenv');
 
 dotenv.load({path:'.env.development'});
 
-
 var device = awsIot.device({
-    keyPath: <YourPrivateKeyPath>,
-    certPath: <YourCertificatePath>,
-    caPath: <YourRootCACertificatePath>,
-    clientId: <YourUniqueClientIdentifier>,
-    host: <YourCustomEndpoint>
+    keyPath: process.env.AWS_IOT_PRIVATE_KEY_PATH,
+    certPath: process.env.AWS_IOT_CERTIFICATE_PATH,
+    caPath: process.env.AWS_IOT_ROOT_CA_CERTIFICATE_PATH,
+    clientId: process.env.AWS_IOT_UNIQUE_CLIENT_IDENTIFIER,
+    host: process.env.AWS_IOT_CUSTOM_ENDPOINT
 });
 
 //
