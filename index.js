@@ -3,23 +3,33 @@ const dotenv = require('dotenv');
 
 dotenv.load({path:'.env.development'});
 
-console.log('private key path : ', process.env.AWS_IOT_PRIVATE_KEY_PATH);
+const {
+    AWS_IOT_PRIVATE_KEY_PATH,
+    AWS_IOT_CERTIFICATE_PATH,
+    AWS_IOT_ROOT_CA_CERTIFICATE_PATH,
+    AWS_IOT_UNIQUE_CLIENT_IDENTIFIER,
+    AWS_IOT_CUSTOM_ENDPOINT,
+    AWS_IOT_THING_NAME
+} = process.env;
+
+
+// console.log('private key path : ', process.env.AWS_IOT_PRIVATE_KEY_PATH);
 
 const device = awsIot.device({
-    keyPath: process.env.AWS_IOT_PRIVATE_KEY_PATH,
-    certPath: process.env.AWS_IOT_CERTIFICATE_PATH,
-    caPath: process.env.AWS_IOT_ROOT_CA_CERTIFICATE_PATH,
-    clientId: process.env.AWS_IOT_UNIQUE_CLIENT_IDENTIFIER,
-    host: process.env.AWS_IOT_CUSTOM_ENDPOINT
+    keyPath: AWS_IOT_PRIVATE_KEY_PATH,
+    certPath: AWS_IOT_CERTIFICATE_PATH,
+    caPath: AWS_IOT_ROOT_CA_CERTIFICATE_PATH,
+    clientId: AWS_IOT_UNIQUE_CLIENT_IDENTIFIER,
+    host: AWS_IOT_CUSTOM_ENDPOINT
 });
 
 
 var thingShadows = awsIot.thingShadow({
-    keyPath: process.env.AWS_IOT_PRIVATE_KEY_PATH,
-    certPath: process.env.AWS_IOT_CERTIFICATE_PATH,
-    caPath: process.env.AWS_IOT_ROOT_CA_CERTIFICATE_PATH,
-    clientId: process.env.AWS_IOT_UNIQUE_CLIENT_IDENTIFIER,
-    host: process.env.AWS_IOT_CUSTOM_ENDPOINT
+    keyPath: AWS_IOT_PRIVATE_KEY_PATH,
+    certPath: AWS_IOT_CERTIFICATE_PATH,
+    caPath: AWS_IOT_ROOT_CA_CERTIFICATE_PATH,
+    clientId: AWS_IOT_UNIQUE_CLIENT_IDENTIFIER,
+    host: AWS_IOT_CUSTOM_ENDPOINT
 });
 
 //
@@ -39,7 +49,7 @@ thingShadows.on('connect', function() {
 // After connecting to the AWS IoT platform, register interest in the
 // Thing Shadow named 'RGBLedLamp'.
 //
-    thingShadows.register( 'grad-project-device', {}, function() {
+    thingShadows.register(AWS_IOT_THING_NAME, {}, function() {
 
 // Once registration is complete, update the Thing Shadow named
 // 'RGBLedLamp' with the latest device state and save the clientToken
@@ -57,7 +67,7 @@ thingShadows.on('connect', function() {
             }
         };
 
-        clientTokenUpdate = thingShadows.update('grad-project-device', rgbLedLampState  );
+        clientTokenUpdate = thingShadows.update(AWS_IOT_THING_NAME, rgbLedLampState  );
 //
 // The update method returns a clientToken; if non-null, this value will
 // be sent in a 'status' event when the operation completes, allowing you
