@@ -46,7 +46,15 @@ thingShadows.on('connect', function() {
 //
 // Thing shadow state
 //
-        var rgbLedLampState = {"state":{"desired":{"red":rval,"green":gval,"blue":bval}}};
+        var rgbLedLampState = {
+            "state":{
+                "desired":{
+                    "red":rval,
+                    "green":gval,
+                    "blue":bval
+                }
+            }
+        };
 
         clientTokenUpdate = thingShadows.update('RGBLedLamp', rgbLedLampState  );
 //
@@ -66,7 +74,7 @@ thingShadows.on('connect', function() {
 thingShadows.on('status',
     function(thingName, stat, clientToken, stateObject) {
         console.log('received '+stat+' on '+thingName+': '+
-            JSON.stringify(stateObject));
+            JSON.stringify(stateObject, undefined, 2));
 //
 // These events report the status of update(), get(), and delete()
 // calls.  The clientToken value associated with the event will have
@@ -79,7 +87,7 @@ thingShadows.on('status',
 thingShadows.on('delta',
     function(thingName, stateObject) {
         console.log('received delta on '+thingName+': '+
-            JSON.stringify(stateObject));
+            JSON.stringify(stateObject, undefined, 2));
     });
 
 thingShadows.on('timeout',
