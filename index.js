@@ -39,7 +39,7 @@ thingShadows.on('connect', function() {
 // After connecting to the AWS IoT platform, register interest in the
 // Thing Shadow named 'RGBLedLamp'.
 //
-    thingShadows.register( 'RGBLedLamp', {}, function() {
+    thingShadows.register( 'grad-project-device', {}, function() {
 
 // Once registration is complete, update the Thing Shadow named
 // 'RGBLedLamp' with the latest device state and save the clientToken
@@ -57,7 +57,7 @@ thingShadows.on('connect', function() {
             }
         };
 
-        clientTokenUpdate = thingShadows.update('RGBLedLamp', rgbLedLampState  );
+        clientTokenUpdate = thingShadows.update('grad-project-device', rgbLedLampState  );
 //
 // The update method returns a clientToken; if non-null, this value will
 // be sent in a 'status' event when the operation completes, allowing you
