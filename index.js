@@ -1,5 +1,8 @@
 const awsIot = require('aws-iot-device-sdk');
 const dotenv = require('dotenv');
+const express = require('express');
+
+const app = express();
 
 dotenv.load({path:'.env.development'});
 
@@ -130,3 +133,16 @@ device
     .on('message', function(topic, payload) {
         console.log('message', topic, payload.toString());
     });
+
+// express router.
+
+app.get('/', (req, res) => {
+    res.status(200).json({
+        message : "this is from raspberry pi!"
+    });
+});
+
+
+app.listen(3000, () => {
+    console.log('server connected.');
+});
